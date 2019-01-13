@@ -1,6 +1,5 @@
 import sys
 from PyQt5 import QtGui
-from functools import partial
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QPlainTextEdit, QLineEdit, QMessageBox
@@ -30,12 +29,12 @@ class Window(QMainWindow):
         self.submit_btn = QPushButton("发帖", self)
         self.submit_btn.move(300, 850)
         self.submit_btn.clicked.connect(self.click_btn)
-        self.InitWindow()
 
-        #Msg Box
+        # Msg Box
         self.msg = QMessageBox()
         self.msg.setTextFormat(Qt.RichText)
 
+        self.InitWindow()
 
     def InitWindow(self):
         self.setWindowTitle(self.title)
@@ -51,10 +50,8 @@ class Window(QMainWindow):
             self.msg.setText(str(val))
             self.msg.setWindowTitle("成功")
             self.msg.exec()
+            self.text_area.setPlainText("")
+            self.line.setText("")
         else:
             self.msg.warning(self, "失败", str(val))
         self.submit_btn.setDisabled(False)
-
-App = QApplication(sys.argv)
-window = Window()
-sys.exit(App.exec())
